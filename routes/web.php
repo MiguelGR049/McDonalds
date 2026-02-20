@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\PedidosController;
 use App\Http\Controllers\HistorialController;
 use App\Http\Controllers\LoginController;
@@ -12,6 +13,10 @@ Route::get('/cerrar_sesion', [loginController::class, 'cerrar_sesion'])->name('c
 
 Route::get('/registro', [RegistroController::class, 'registro'])->name('registro');
 Route::post('/insertar_usuario', [RegistroController::class, 'insertar_usuario'])->name('insertar_usuario');
+Route::post('/insertar_empleado', [RegistroController::class, 'insertar_empleado'])->name('insertar_empleado');
+
+Route::get('/lista_empleado', [UsuarioController::class, 'lista_Usuarios'])->name('empleados');
+Route::get('/registro_empleado', [RegistroController::class, 'registro_empleado'])->name('registro_empleado');
 
 Route::get('/', [PedidosController::class, 'inicio'])->name('inicio');
 Route::get('/inicio', [PedidosController::class, 'inicio'])->name('inicio');

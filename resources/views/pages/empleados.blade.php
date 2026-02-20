@@ -7,12 +7,12 @@
     <div class="row mt-2 justify-content-center">
         <div class="col mt-2 text-center">
             <div class="card p-3 rounded-3 mb-4">
-                <h3 class="mb-4 text-center">Pedidos Entregados</h3>
+                <h3 class="mb-4 text-center">Lista Empleados</h3>
                 <div className="d-flex justify-content-center text-center mt-1 mb-2">
                     <a class="btn btn-success me-1" href="{{route('inicio')}}">
                         <i class="fa-solid fa-house"></i> Inicio
                     </a>
-                    <a class="btn btn-info me-1" href="{{route('lista_pedidos')}}">Pedidos</a>
+                    <a class="btn btn-primary" href="{{route('registro_empleado')}}">Registrar Empleado</a>
                 </div>
                 <div class="corner top-left">
                     <img src="{{asset('img/adorno04.png')}}" alt="Adorno esquina superior izquierda">
@@ -31,26 +31,22 @@
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>Tipo</th>
-                                <th>Descripción</th>
-                                <th>Total</th>
-                                <th>Método</th>
+                                <th>Nombre</th>
+                                <th>Apellidos</th>
                                 <th>Usuario</th>
                                 <th>Rol</th>
-                                <th>Fecha</th>
+                                <th>Email</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($datos as $pedido)
+                            @foreach($datos as $usuario)
                             <tr>
-                                <td>{{$pedido->id}}</td>
-                                <td>{{$pedido->tipo}}</td>
-                                <td>{{$pedido->descripcion}}</td>
-                                <td>{{$pedido->total_pagar}}</td>
-                                <td>{{$pedido->metodo_pago}}</td>
-                                <td>{{$pedido->usuario->nombre ?? 'N/A'}}</td>
-                                <td>{{$pedido->usuario->roles ?? 'N/A'}}</td>
-                                <td>{{$pedido->fecha_pedido}}</td>
+                                <td>{{$usuario->id}}</td>
+                                <td>{{$usuario->nombre}}</td>
+                                <td>{{$usuario->apellido_pa}} {{$usuario->apellido_ma}}</td>
+                                <td>{{$usuario->usuario}}</td>
+                                <td>{{$usuario->roles}}</td>
+                                <td>{{$usuario->email}}</td>
                             </tr>
                             @endforeach
                         </tbody>

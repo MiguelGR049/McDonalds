@@ -62,9 +62,9 @@
 
                         <input type="hidden" name="fecha_pedido" id="fecha_pedido">
 
-                        <div class="col justify-content-center text-center">
-                            <button type="submit" class="btn btn-success mb-2">Realizar Pedido</button>
-                            <br>
+                        <div className="d-flex justify-content-center text-center mt-1">
+                            <button type="submit" class="btn btn-success me-2">Realizar Pedido</button>
+                            <a class="btn btn-warning me-1" href="{{route('inicio')}}">Cancelar</a>
                         </div>
                     </div>
                 </div>
@@ -132,7 +132,7 @@
 <!-- Scripts -->
 <script>
     // Establecer fecha y hora actual automáticamente
-    document.addEventListener("DOMContentLoaded", function () {
+    document.addEventListener("DOMContentLoaded", function() {
         const ahora = new Date();
         const formato = ahora.toISOString().slice(0, 19).replace("T", " ");
         document.getElementById('fecha_pedido').value = formato;
@@ -193,7 +193,7 @@
         // Si es individual, solo permite uno
         if (tipo.includes('individual')) {
             campos.forEach(id => {
-                document.getElementById(id).addEventListener('change', function () {
+                document.getElementById(id).addEventListener('change', function() {
                     if (this.value !== "") {
                         campos.forEach(otherId => {
                             if (otherId !== id) {

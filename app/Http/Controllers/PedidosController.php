@@ -28,11 +28,11 @@ class PedidosController extends Controller
         if ($sesionUsuario == "") {
             return view("pages.login", ["titulo" => "login"]);
         } else {
-            $consulta = Pedidos::get();
-            $datos = $consulta;
+            $datos = Pedidos::where('entregado', 'No')->get();
             return view("pages.pedidos", ["titulo" => "Pedidos", "datos" => $datos]);
         }
     }
+
     public function agregar()
     {
         $sesionUsuario = session('sesionUsuario');

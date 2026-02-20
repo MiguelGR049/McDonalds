@@ -101,6 +101,19 @@ input.form-control:focus {
     border-color: #ff0000;
 }
 
+select.form-control {
+    background-color: rgba(255, 255, 255, 0.8);
+    color: black;
+    border: 2px solid #ffc107;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+select.form-control:focus {
+    background-color: rgba(255, 255, 255, 0.9);
+    border-color: #ff0000;
+}
+
 /* Labels */
 label {
     color: #ffc107;
