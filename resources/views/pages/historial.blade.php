@@ -5,14 +5,14 @@
 
 <div class="container mt-5">
     <div class="row mt-2 justify-content-center">
-        <div class="col mt-2 text-center">
+        <div class="col mt-4 text-center">
             <div class="card p-3 rounded-3 mb-4">
                 <h3 class="mb-4 text-center">Pedidos Entregados</h3>
                 <div className="d-flex justify-content-center text-center mt-1 mb-2">
-                    <a class="btn btn-success me-1" href="{{route('inicio')}}">
+                    <a class="btn btn-dark me-1"  href="{{route('inicio')}}">
                         <i class="fa-solid fa-house"></i> Inicio
                     </a>
-                    <a class="btn btn-info me-1" href="{{route('lista_pedidos')}}">Pedidos</a>
+                    <a class="btn btn-info me-1" id="btn_pedidos" href="{{route('lista_pedidos')}}">Pedidos</a>
                 </div>
                 <div class="corner top-left">
                     <img src="{{asset('img/adorno04.png')}}" alt="Adorno esquina superior izquierda">

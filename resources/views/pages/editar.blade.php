@@ -2,59 +2,72 @@
 
 @section('contenido')
 @include('components/navbar')
+
 <div class="container mt-5">
     <div class="row mt-5 justify-content-center">
         <div class="col mb-4 text-center">
             <form method="post" action="{{route('actualizar', $pedido->id)}}" class="row mt-5 justify-content-center">
                 @method('PUT')
                 @csrf
-                <div class="card justify-content-center" style="width: 25rem; background-color: rgba(255, 255, 255, 0.5);">
+
+                <div class="card justify-content-center" style="width: 28rem; background-color: rgba(255, 255, 255, 0.6);">
                     <img class="mx-auto d-block" src="{{ asset('img/comida.png') }}" height="125" width="125px">
-                    <div class="card-body row justify-content-center">
+
+                    <div class="card-body">
 
                         <h1 class="fw-bold text-center">Editar Pedido</h1>
 
-                        <label class="fw-bold" for="tipo">Tipo</label>
-                        <select name="tipo" id="tipo" class="form-control mb-3">
-                            <option value="">Selecciona un tipo</option>
-                            <option value="McTrio Mediano" {{ $pedido->tipo == 'McTrio Mediano' ? 'selected' : '' }}>McTrio Mediano</option>
-                            <option value="McTrio Grande" {{ $pedido->tipo == 'McTrio Grande' ? 'selected' : '' }}>McTrio Grande</option>
-                            <option value="Individual" {{ $pedido->tipo == 'Individual' ? 'selected' : '' }}>Individual</option>
-                        </select>
-                        @error('tipo')
-                        <p>{{$message}}</p>
-                        @enderror
+                        <input type="hidden" name="tipo" id="tipo" value="{{$pedido->tipo}}">
+                        <input type="hidden" name="metodo_pago" id="metodo_pago" value="{{$pedido->metodo_pago}}">
 
-                        <label class="fw-bold" for="descripcion">Descripción</label>
+                        <div class="mb-3 text-center">
+                            <label class="fw-bold">Tipo</label>
+                            <div class="d-flex justify-content-around mt-2">
+                                <select name="tipo" id="tipo" class="form-control mb-3">
+                                    <option value="">Selecciona un tipo</option>
+                                    <option value="McTrio Mediano" {{ $pedido->tipo == 'McTrio Mediano' ? 'selected' : '' }}>McTrio Mediano</option>
+                                    <option value="McTrio Grande" {{ $pedido->tipo == 'McTrio Grande' ? 'selected' : '' }}>McTrio Grande</option>
+                                    <option value="Individual" {{ $pedido->tipo == 'Individual' ? 'selected' : '' }}>Individual</option>
+                                </select>
+                                @error('tipo')
+                                <p>{{$message}}</p>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <label class="fw-bold">Descripción</label>
                         <div class="input-group mb-3">
-                            <input name="descripcion" id="descripcion" class="form-control" type="text" placeholder="Descripción del pedido" readonly value="{{$pedido->descripcion}}">
+                            <input name="descripcion" id="descripcion" class="form-control" type="text" readonly value="{{$pedido->descripcion}}">
                             <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#personalizarModal">
                                 Editar
                             </button>
                         </div>
-                        @error('descripcion')
-                        <p>{{$message}}</p>
-                        @enderror
 
-                        <label class="fw-bold" for="total_pagar">Total a Pagar</label>
-                        <input name="total_pagar" id="total_pagar" class="form-control mb-3" type="text" placeholder="Total a Pagar" value="{{$pedido->total_pagar}}" readonly>
-                        @error('total_pagar')
-                        <p>{{$message}}</p>
-                        @enderror
+                        <label class="fw-bold">Total a Pagar</label>
+                        <input name="total_pagar" id="total_pagar" class="form-control mb-3" type="text" readonly value="{{$pedido->total_pagar}}">
 
-                        <label class="fw-bold" for="metodo_pago">Método de Pago</label>
-                        <select name="metodo_pago" id="metodo_pago" class="form-control mb-3">
-                            <option value="">Selecciona un método</option>
-                            <option value="Efectivo" {{ $pedido->metodo_pago == 'Efectivo' ? 'selected' : '' }}>Efectivo</option>
-                            <option value="Tarjeta" {{ $pedido->metodo_pago == 'Tarjeta' ? 'selected' : '' }}>Tarjeta</option>
-                        </select>
-                        @error('metodo_pago')
-                        <p>{{$message}}</p>
-                        @enderror
+                        <div class="mb-3 text-center">
+                            <label class="fw-bold">Método de Pago</label>
+                            <div class="d-flex justify-content-around mt-2">
 
-                        <div class="col justify-content-center text-center">
-                            <button type="submit" class="btn btn-success mb-2">Actualizar</button>
+                                <div class="pago-card {{ $pedido->metodo_pago == 'Efectivo' ? 'seleccionado' : '' }}" onclick="seleccionarPago('Efectivo', this)">
+                                    <img src="{{ asset('img/efectivo.png') }}" class="img-fluid">
+                                    <p>Efectivo</p>
+                                </div>
+
+                                <div class="pago-card {{ $pedido->metodo_pago == 'Tarjeta' ? 'seleccionado' : '' }}" onclick="seleccionarPago('Tarjeta', this)">
+                                    <img src="{{ asset('img/tarjeta.png') }}" class="img-fluid">
+                                    <p>Tarjeta</p>
+                                </div>
+
+                            </div>
                         </div>
+
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-success">Actualizar</button>
+                            <a class="btn btn-warning" href="{{route('lista_pedidos')}}">Cancelar</a>
+                        </div>
+
                     </div>
                 </div>
             </form>
@@ -62,66 +75,83 @@
     </div>
 </div>
 
-<!-- Modal para personalizar pedido -->
-<div class="modal fade" id="personalizarModal" tabindex="-1" aria-labelledby="personalizarLabel" aria-hidden="true">
+<div class="modal fade" id="personalizarModal">
     <div class="modal-dialog modal-lg">
         <div class="modal-content bg-light">
+
             <div class="modal-header">
-                <h5 class="modal-title" id="personalizarLabel">Personalizar Pedido</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                <h5 class="modal-title">Personalizar Pedido</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
+
             <div class="modal-body">
-                <!-- Hamburguesa -->
+
+                <input type="hidden" id="hamburguesa">
+                <input type="hidden" id="papas">
+                <input type="hidden" id="refresco">
+
                 <div class="mb-3">
                     <label class="fw-bold">Hamburguesa</label>
-                    <select id="hamburguesa" class="form-select">
-                        <option value="">Seleccionar</option>
-                        <option value="Big Mac">Big Mac</option>
-                        <option value="Cuarto de Libra">Cuarto de Libra</option>
-                        <option value="McPollo">McPollo</option>
-                    </select>
+                    <div class="d-flex justify-content-around">
+                        <img src="{{ asset('img/bigmac.png') }}" class="opcion-img" onclick="seleccionarOpcion('hamburguesa','Big Mac', this)">
+                        <img src="{{ asset('img/cuarto.png') }}" class="opcion-img" onclick="seleccionarOpcion('hamburguesa','Cuarto de Libra', this)">
+                        <img src="{{ asset('img/mcpollo.png') }}" class="opcion-img" onclick="seleccionarOpcion('hamburguesa','McPollo', this)">
+                    </div>
                 </div>
 
-                <!-- Papas -->
                 <div class="mb-3">
                     <label class="fw-bold">Papas</label>
-                    <select id="papas" class="form-select">
-                        <option value="">Seleccionar</option>
-                        <option value="Papas Chicas">Papas Chicas</option>
-                        <option value="Papas Medianas">Papas Medianas</option>
-                        <option value="Papas Grandes">Papas Grandes</option>
-                        <option value="McPatatas">McPatatas</option>
-                    </select>
+                    <div class="d-flex justify-content-around">
+                        <img src="{{ asset('img/papas_chicas.png') }}" class="opcion-img" onclick="seleccionarOpcion('papas','Papas Chicas', this)">
+                        <img src="{{ asset('img/papas_medianas.png') }}" class="opcion-img" onclick="seleccionarOpcion('papas','Papas Medianas', this)">
+                        <img src="{{ asset('img/papas_grandes.png') }}" class="opcion-img" onclick="seleccionarOpcion('papas','Papas Grandes', this)">
+                    </div>
                 </div>
 
-                <!-- Refresco -->
                 <div class="mb-3">
-                    <label class="fw-bold">Sabor de Refresco</label>
-                    <select id="refresco" class="form-select">
-                        <option value="">Seleccionar</option>
-                        <option value="Coca-Cola">Coca-Cola</option>
-                        <option value="Sprite">Sprite</option>
-                        <option value="Fanta">Fanta</option>
-                        <option value="Agua">Agua</option>
-                    </select>
+                    <label class="fw-bold">Refresco</label>
+                    <div class="d-flex justify-content-around">
+                        <img src="{{ asset('img/coca.png') }}" class="opcion-img" onclick="seleccionarOpcion('refresco','Coca-Cola', this)">
+                        <img src="{{ asset('img/sprite.png') }}" class="opcion-img" onclick="seleccionarOpcion('refresco','Sprite', this)">
+                        <img src="{{ asset('img/fanta.png') }}" class="opcion-img" onclick="seleccionarOpcion('refresco','Fanta', this)">
+                    </div>
                 </div>
 
-                <!-- Extras -->
                 <div class="mb-3">
                     <label class="fw-bold">Extras / Quitar</label>
-                    <input type="text" id="extras" class="form-control" placeholder="Ej: Sin cebolla, extra queso">
+                    <input type="text" id="extras" class="form-control">
                 </div>
+
             </div>
+
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-success" onclick="generarDescripcion()">Aplicar</button>
+                <button class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button class="btn btn-success" onclick="generarDescripcion()">Aplicar</button>
             </div>
+
         </div>
     </div>
 </div>
 
-<!-- Script para actualizar descripción y total -->
 <script>
+    function seleccionarTipo(tipoSeleccionado, elemento) {
+        document.getElementById('tipo').value = tipoSeleccionado;
+        document.querySelectorAll('.tipo-card').forEach(el => el.classList.remove('seleccionado'));
+        elemento.classList.add('seleccionado');
+    }
+
+    function seleccionarPago(metodo, elemento) {
+        document.getElementById('metodo_pago').value = metodo;
+        document.querySelectorAll('.pago-card').forEach(el => el.classList.remove('seleccionado'));
+        elemento.classList.add('seleccionado');
+    }
+
+    function seleccionarOpcion(campo, valor, elemento) {
+        document.getElementById(campo).value = valor;
+        elemento.parentElement.querySelectorAll('.opcion-img').forEach(el => el.classList.remove('seleccionado'));
+        elemento.classList.add('seleccionado');
+    }
+
     function generarDescripcion() {
         const tipo = document.getElementById('tipo').value.toLowerCase();
         const hamburguesa = document.getElementById('hamburguesa').value;
@@ -159,48 +189,9 @@
         document.getElementById('descripcion').value = descripcion;
         document.getElementById('total_pagar').value = precio;
 
-        // Cierra el modal
-        const modal = bootstrap.Modal.getInstance(document.getElementById('personalizarModal'));
+        var modal = bootstrap.Modal.getInstance(document.getElementById('personalizarModal'));
         modal.hide();
     }
-    document.addEventListener("DOMContentLoaded", () => {
-        const tipoSelect = document.getElementById('tipo');
-        const hamburguesa = document.getElementById('hamburguesa');
-        const papas = document.getElementById('papas');
-        const refresco = document.getElementById('refresco');
-
-        function actualizarOpciones() {
-            const tipo = tipoSelect.value;
-
-            if (tipo === 'Individual') {
-                // Solo permitir una opción activa a la vez
-                hamburguesa.disabled = false;
-                papas.disabled = false;
-                refresco.disabled = false;
-
-                [hamburguesa, papas, refresco].forEach(select => {
-                    select.addEventListener('change', () => {
-                        const selects = [hamburguesa, papas, refresco];
-                        let selected = selects.find(s => s.value !== '');
-                        selects.forEach(s => {
-                            if (s !== selected) s.disabled = true;
-                        });
-                        if (!selected) {
-                            selects.forEach(s => s.disabled = false);
-                        }
-                    });
-                });
-
-            } else {
-                // Combo: todos activos
-                [hamburguesa, papas, refresco].forEach(select => {
-                    select.disabled = false;
-                });
-            }
-        }
-
-        tipoSelect.addEventListener('change', actualizarOpciones);
-        actualizarOpciones(); // Llamada inicial por si ya hay un valor
-    });
 </script>
+
 @endsection

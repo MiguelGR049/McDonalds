@@ -32,3 +32,6 @@ Route::get('/editar/{id}', [PedidosController::class, 'editar'])->name('editar')
 Route::put('/edicion/{pedido}', [PedidosController::class, 'actualizar'])->name('actualizar');
 Route::post('/insertar', [PedidosController::class, 'insertar_pedido'])->name('insertar');
 Route::get('/eliminar/{id}', [PedidosController::class, 'eliminar_pedido'])->name('eliminar');
+
+Route::get('/recuperar', [RegistroController::class, 'vista_recuperar'])->name('recuperar');
+Route::post('/recuperar-pin', [RegistroController::class, 'recuperar_pin'])->name('recuperar_pin');

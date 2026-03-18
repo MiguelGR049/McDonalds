@@ -4,24 +4,25 @@ namespace App\Http\Controllers;
 
 use App\Models\Usuario;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 
 class LoginController extends Controller
 {
     public function login()
     {
-        $sesionUsuario = session('sesionUsuario');
-        if ($sesionUsuario == "") {
-            return view("pages.login", ["titulo" => "login"]);
-        } else {
+        if (session()->has('sesionUsuario')) {
             return redirect()->route("inicio");
         }
+
+        return response()
+            ->view("pages.login", ["titulo" => "login"])
+            ->header('Cache-Control', 'no-cache, no-store, max-age=0, must-revalidate')
+            ->header('Pragma', 'no-cache')
+            ->header('Expires', 'Sat, 01 Jan 1990 00:00:00 GMT');
     }
 
     public function login_usuario(Request $request)
     {
-
         $request->validate([
             "usuario" => "required|string|regex:/^[A-Za-z0-9]+$/",
             "password" => "required|string"
@@ -29,31 +30,30 @@ class LoginController extends Controller
 
         $consulta = Usuario::where("usuario", $request->usuario)->first();
 
-        if ($consulta) {
-
-            if (password_verify($request->password, $consulta->password)) {
-
-                session()->put("sesionUsuario", $consulta->id);
-                session()->put("rol", $consulta->roles);
-
-                return redirect()->route("inicio");
-            } else {
-                throw ValidationException::withMessages([
-                    "password" => "Contraseña incorrecta"
-                ]);
-            }
-        } else {
+        if (!$consulta) {
             throw ValidationException::withMessages([
                 "usuario" => "Usuario no encontrado"
             ]);
         }
-    }
 
+        if (!password_verify($request->password, $consulta->password)) {
+            throw ValidationException::withMessages([
+                "password" => "Contraseña incorrecta"
+            ]);
+        }
+
+        session()->put("sesionUsuario", $consulta->id);
+        session()->put("rol", $consulta->roles);
+
+        return redirect()->route("inicio");
+    }
 
     public function cerrar_sesion(Request $request)
     {
-        $request->session()->forget("sesionUsuario");
-        $request->session()->forget("id");
+        $request->session()->flush();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
         return redirect()->route("login");
     }
 }

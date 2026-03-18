@@ -10,13 +10,15 @@ body {
     font-family: 'Bangers', cursive;
     font-size: 30px;
     font-weight: bold;
-    color: #ffc107; /* Amarillo tipo McDonald's */
+    color: #ffc107;
+    /* Amarillo tipo McDonald's */
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 /* Estilo general de la tarjeta */
 .card {
-    background: linear-gradient(135deg, #ff0000, #d32f2f); /* Rojo McDonald's */
+    background: linear-gradient(135deg, #ff0000, #d32f2f);
+    /* Rojo McDonald's */
     border-radius: 15px;
     position: relative;
     padding: 2rem;
@@ -26,7 +28,8 @@ body {
 .table th {
     font-family: 'Bangers', cursive;
     font-size: 1.25rem;
-    color: #ffc107; /* Amarillo brillante */
+    color: #ffc107;
+    /* Amarillo brillante */
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
@@ -87,7 +90,6 @@ body {
     right: -10px;
 }
 
-/* Inputs */
 input.form-control {
     background-color: rgba(255, 255, 255, 0.8);
     color: black;
@@ -114,8 +116,79 @@ select.form-control:focus {
     border-color: #ff0000;
 }
 
-/* Labels */
 label {
     color: #ffc107;
     font-weight: bold;
+}
+
+#btn_pedidos {
+    background-color: #ff0000;
+    color: rgb(0, 0, 0);
+    border: none;
+    border-radius: 10px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+
+}
+
+#btn_pedidos:hover {
+    background-color: #f32828;
+}
+
+#btn_realizar {
+    background-color: #ffd900;
+    color: rgb(0, 0, 0);
+    border: none;
+    border-radius: 10px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+
+}
+
+#btn_realizar:hover {
+    background-color: #f2d322;
+}
+
+#btn_historial {
+    background-color: #e1e8ef;
+    color: rgb(9, 9, 9);
+    border: none;
+    border-radius: 10px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+
+}
+
+#btn_historial:hover {
+    background-color: #c0c4c8;
+}
+
+.tipo-card,
+.pago-card {
+    cursor: pointer;
+    width: 30%;
+    transition: 0.2s;
+}
+
+.tipo-card:hover,
+.pago-card:hover {
+    transform: scale(1.05);
+}
+
+.opcion-img {
+    width: 90px;
+    cursor: pointer;
+    border-radius: 10px;
+    transition: 0.2s;
+}
+
+.opcion-img:hover {
+    transform: scale(1.1);
+}
+
+.seleccionado {
+    border: 3px solid red;
 }

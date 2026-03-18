@@ -7,7 +7,7 @@
     <div class="row mt-2 justify-content-center">
         <div class="col mt-2 text-center">
             <div class="card p-3 rounded-3 mb-4">
-                <h3 class="mb-4 text-center">Lista Empleados</h3>
+                <h3 class="mb-4 text-center">Lista Usuarios/Empleados</h3>
                 <div className="d-flex justify-content-center text-center mt-1 mb-2">
                     <a class="btn btn-success me-1" href="{{route('inicio')}}">
                         <i class="fa-solid fa-house"></i> Inicio

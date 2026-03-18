@@ -26,7 +26,7 @@
 
                     @if($usuario && $usuario->esGerente())
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('empleados')}}">Lista Empleados</a>
+                        <a class="nav-link" href="{{route('empleados')}}">Lista Usuarios/Empleados</a>
                     </li>
                     @endif
                 </ul>

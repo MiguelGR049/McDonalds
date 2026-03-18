@@ -28,8 +28,15 @@ class PedidosController extends Controller
         if ($sesionUsuario == "") {
             return view("pages.login", ["titulo" => "login"]);
         } else {
-            $datos = Pedidos::where('entregado', 'No')->get();
-            return view("pages.pedidos", ["titulo" => "Pedidos", "datos" => $datos]);
+
+            $datos = Pedidos::where('entregado', 'No')
+                ->where('usuario_id', $sesionUsuario)
+                ->get();
+
+            return view("pages.pedidos", [
+                "titulo" => "Pedidos",
+                "datos" => $datos
+            ]);
         }
     }
 
@@ -100,6 +107,8 @@ class PedidosController extends Controller
 
     public function insertar_pedido(Request $request, Pedidos $pedido)
     {
+        $sesionUsuario = session('sesionUsuario');
+        
         request()->validate(
             [
                 "tipo" => "required|string",
@@ -122,6 +131,7 @@ class PedidosController extends Controller
         $pedido->metodo_pago = $request->metodo_pago;
         $pedido->entregado = $request->entregado;
         $pedido->fecha_pedido = $request->fecha_pedido;
+        $pedido->usuario_id = $sesionUsuario;
         $pedido->save();
         return redirect()->route("lista_pedidos");
     }

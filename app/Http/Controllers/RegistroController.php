@@ -117,4 +117,29 @@ class RegistroController extends Controller
             throw ValidationException::withMessages(["usuario" => "Ese usuario ya esta registrado"]);
         }
     }
+
+    public function vista_recuperar()
+    {
+        return view("pages.recuperar", ["titulo" => "Recuperar PIN"]);
+    }
+
+    public function recuperar_pin(Request $request)
+    {
+        request()->validate([
+            "email" => "required|email"
+        ]);
+
+        $usuario = \App\Models\Usuario::where('email', $request->email)->first();
+
+        if (!$usuario) {
+            return back()->withErrors(["email" => "El correo no está registrado"]);
+        }
+
+        $nuevoPin = rand(1000, 9999);
+
+        $usuario->password = \Illuminate\Support\Facades\Hash::make($nuevoPin);
+        $usuario->save();
+
+        return back()->with("success", "Tu nuevo PIN es: $nuevoPin");
+    }
 }

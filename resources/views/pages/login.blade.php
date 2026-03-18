@@ -24,8 +24,11 @@
                         <p>{{$message}}</p>
                         @enderror
 
+                        <a href="{{route('recuperar')}}" class="d-block text-center mt-2">
+                            ¿Olvidaste tu PIN?
+                        </a>
 
-                        <div class="col justify-content-center text-center">
+                        <div class="col justify-content-center text-center mt-2">
                             <button type="submit" class="btn btn-success mb-2"><i class="fa-solid fa-right-to-bracket"></i> Iniciar</button>
                             <br>
                             <a href="{{route('registro')}}" class="btn btn-link-danger"><i class="fa-solid fa-chalkboard-user"></i> Registro</a>
