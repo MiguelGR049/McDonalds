@@ -21,7 +21,7 @@ $usuario = Usuario::find($idUsuario);
                             <h1 class="fw-bold text-center">Bienvenido</h1>
 
                             <h3 class="fw-bold text-center mb-4">
-                                {{ $usuario->usuario ?? '' }}
+                                {{ $usuario->nombre ?? '' }}
                             </h3>
 
 

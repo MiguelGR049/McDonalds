@@ -3,8 +3,8 @@
 @section('contenido')
 @include('components/navbar')
 
-<div class="container mt-5">
-    <div class="row mt-5 justify-content-center">
+<div class="container mt-4">
+    <div class="row mt-4 justify-content-center">
         <div class="col mb-4 text-center">
             <form method="post" action="{{route('actualizar', $pedido->id)}}" class="row mt-5 justify-content-center">
                 @method('PUT')
@@ -77,7 +77,7 @@
 
 <div class="modal fade" id="personalizarModal">
     <div class="modal-dialog modal-lg">
-        <div class="modal-content bg-light">
+        <div class="modal-content" id="personal_pedido">
 
             <div class="modal-header">
                 <h5 class="modal-title">Personalizar Pedido</h5>

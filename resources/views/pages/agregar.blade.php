@@ -82,7 +82,7 @@
 
 <div class="modal fade" id="personalizarModal">
     <div class="modal-dialog modal-lg">
-        <div class="modal-content bg-light">
+        <div class="modal-content" id="personal_pedido">
 
             <div class="modal-header">
                 <h5 class="modal-title">Personalizar Pedido</h5>

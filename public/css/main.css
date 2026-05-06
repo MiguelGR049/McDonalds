@@ -19,6 +19,7 @@ body {
 .card {
     background: linear-gradient(135deg, #ff0000, #d32f2f);
     /* Rojo McDonald's */
+    border-color: #9d0606;
     border-radius: 15px;
     position: relative;
     padding: 2rem;
@@ -190,5 +191,28 @@ label {
 }
 
 .seleccionado {
-    border: 3px solid red;
+    border: 3px solid rgb(249, 218, 21);
+    border-radius: 5%;
+}
+
+h5 {
+    color: #ffc107;
+    font-weight: bold;
+}
+#x {
+    background-color: transparent;
+    border: none;
+    font-size: 1.5rem;
+    color: #ffc107;
+}
+
+#offcanvasNavbar {
+    background-color: rgba(123, 101, 101, 0.63);
+    
+}
+
+#personal_pedido {
+    background-color: rgba(102, 4, 4, 0.9);
+    border-radius: 15px;
+    padding: 20px;
 }
