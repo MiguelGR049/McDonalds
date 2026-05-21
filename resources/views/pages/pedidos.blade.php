@@ -19,10 +19,18 @@ $usuario = Usuario::find($idUsuario);
                 </h3>
                 <h3 class="mb-4 text-center">Lista de Pedidos</h3>
 
-                <div class="d-flex justify-content-center text-center mt-1">
-                    <a class="btn btn-dark me-1" href="{{route('inicio')}}">Inicio</a>
-                    <a class="btn btn-info me-1" href="{{route('agregar')}}">Realizar Pedido</a>
-                    <a class="btn btn-secondary me-1" href="{{route('historial')}}">Historial Pedidos</a>
+                <div class="d-flex justify-content-center align-items-center gap-2 flex-wrap mt-1 mb-3">
+                    <a class="btn" id="btn_inicio" href="{{route('inicio')}}">
+                        <i class="fa-solid fa-house"></i> Inicio
+                    </a>
+
+                    <a class="btn" id="btn_realizar" href="{{route('agregar')}}">
+                        <i class="fa-solid fa-burger"></i> Realizar Pedido
+                    </a>
+
+                    <a class="btn" id="btn_historial" href="{{route('historial')}}">
+                        <i class="fa-solid fa-clock-rotate-left"></i> Historial Pedidos
+                    </a>
                 </div>
 
                 <div class="content mt-4">
